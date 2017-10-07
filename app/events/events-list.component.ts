@@ -26,6 +26,6 @@ export class EventsListComponent {
     }
 
     handleEventClicked(data): void {
-        console.log(data);
+        console.log(data)
     }
 }
