@@ -1,11 +1,11 @@
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { ISession } from '../shared/event.model';
 import { VoterService } from './voter.service';
 
 describe('VoterService', () => {
-    let voterService: VoterService,
-        mockHttp: jasmine.SpyObj<Http>;
+    let voterService: VoterService;
+    let mockHttp: jasmine.SpyObj<Http>;
 
     beforeEach(() => {
         mockHttp = jasmine.createSpyObj<Http>('mockHttp', ['delete', 'post']);
@@ -14,7 +14,7 @@ describe('VoterService', () => {
 
     describe('deleteVoter', () => {
         it('should remove the voter from the list of voters', () => {
-            let session = { id: 6, voters: ['Joe', 'John'] };
+            const session = { id: 6, voters: ['Joe', 'John'] };
             mockHttp.delete.and.returnValue(Observable.of(false));
 
             voterService.deleteVoter(3, session as ISession, 'Joe');
@@ -24,7 +24,7 @@ describe('VoterService', () => {
         });
 
         it('should call http.delete with the right URL', () => {
-            let session = { id: 6, voters: ['Joe', 'John'] };
+            const session = { id: 6, voters: ['Joe', 'John'] };
             mockHttp.delete.and.returnValue(Observable.of(false));
 
             voterService.deleteVoter(3, session as ISession, 'Joe');
@@ -35,12 +35,13 @@ describe('VoterService', () => {
 
     describe('addVoter', () => {
         it('should call http.post with the right URL', () => {
-            let session = { id: 6, voters: ['John'] };
+            const session = { id: 6, voters: ['John'] };
             mockHttp.post.and.returnValue(Observable.of(false));
 
             voterService.addVoter(3, session as ISession, 'Joe');
 
-            expect(mockHttp.post).toHaveBeenCalledWith('/api/events/3/sessions/6/voters/Joe', '{}', jasmine.any(Object));
+            expect(mockHttp.post)
+                    .toHaveBeenCalledWith('/api/events/3/sessions/6/voters/Joe', '{}', jasmine.any(Object));
         });
     });
 });

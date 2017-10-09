@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { ISession } from '../shared/event.model';
 
 @Injectable()
@@ -10,7 +10,9 @@ export class VoterService {
     public deleteVoter(eventId: number, session: ISession, voterName: string) {
         session.voters = session.voters.filter((v) => v !== voterName);
 
-        this.http.delete(`/api/events/${eventId}/sessions/${session.id}/voters/${voterName}`).catch(this.handleError).subscribe();
+        this.http.delete(`/api/events/${eventId}/sessions/${session.id}/voters/${voterName}`)
+                    .catch(this.handleError)
+                    .subscribe();
     }
 
     public addVoter(eventId: number, session: ISession, voterName: string) {
