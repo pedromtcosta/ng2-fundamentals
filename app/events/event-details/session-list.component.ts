@@ -1,40 +1,40 @@
-import { Component, Input, OnChanges } from "@angular/core";
-import { ISession } from "../shared/index";
-import { AuthService } from "../../user/auth.service";
-import { VoterService } from "./voter.service";
+import { Component, Input, OnChanges } from '@angular/core';
+import { AuthService } from '../../user/auth.service';
+import { ISession } from '../shared/index';
+import { VoterService } from './voter.service';
 
 @Component({
     selector: 'session-list',
-    templateUrl: 'app/events/event-details/session-list.component.html'
+    templateUrl: 'app/events/event-details/session-list.component.html',
 })
 export class SessionListComponent implements OnChanges {
-    @Input() sessions: ISession[];
-    @Input() filterBy: string;
-    @Input() sortBy: string;
-    @Input() eventId: number;
-    visibleSessions:  ISession[] = [];
+    @Input() public sessions: ISession[];
+    @Input() public filterBy: string;
+    @Input() public sortBy: string;
+    @Input() public eventId: number;
+    public visibleSessions: ISession[] = [];
 
     constructor(private auth: AuthService,
                 private voterService: VoterService) {}
 
-    ngOnChanges(): void {
+    public ngOnChanges(): void {
         if (this.sessions) {
             this.filterSessions(this.filterBy);
             this.sortBy === 'name' ? this.visibleSessions.sort(sortByNameAsc) : this.visibleSessions.sort(sortByVotesDesc);
         }
     }
 
-    filterSessions(filter) {
+    public filterSessions(filter) {
         if (filter === 'all') {
             this.visibleSessions = this.sessions.slice(0);
         } else {
-            this.visibleSessions = this.sessions.filter(s => {
+            this.visibleSessions = this.sessions.filter((s) => {
                 return s.level.toLocaleLowerCase() === filter;
             });
         }
     }
 
-    toggleVote(session: ISession) {
+    public toggleVote(session: ISession) {
         if (this.userHasVoted(session)) {
             this.voterService.deleteVoter(this.eventId, session, this.auth.currentUser.userName);
         } else {
@@ -45,7 +45,7 @@ export class SessionListComponent implements OnChanges {
         }
     }
 
-    userHasVoted(session: ISession) {
+    public userHasVoted(session: ISession) {
         return this.voterService.userHasVoted(session, this.auth.currentUser.userName);
     }
 }

@@ -1,6 +1,6 @@
-import { SessionListComponent } from './session-list.component'
-import { ISession } from '../shared/event.model'
 import { AuthService } from '../../user/auth.service';
+import { ISession } from '../shared/event.model';
+import { SessionListComponent } from './session-list.component';
 import { VoterService } from './voter.service';
 
 describe('SessionListCompoentn', () => {
@@ -13,11 +13,11 @@ describe('SessionListCompoentn', () => {
 
     describe('ngOnChanges', () => {
         it('should filter the sessions correctly', () => {
-            component.sessions = <ISession[]>[
+            component.sessions = [
                 {name: 'session 1', level: 'intermediate'},
                 {name: 'session 2', level: 'intermediate'},
-                {name: 'session 3', level: 'beginner'}
-            ];
+                {name: 'session 3', level: 'beginner'},
+            ] as ISession[];
 
             component.filterBy = 'intermediate';
             component.sortBy = 'name';
@@ -29,11 +29,11 @@ describe('SessionListCompoentn', () => {
         });
 
         it('should order the sessions correctly', () => {
-            component.sessions = <ISession[]>[
+            component.sessions = [
                 {name: 'session 1', level: 'intermediate'},
                 {name: 'session 3', level: 'intermediate'},
-                {name: 'session 2', level: 'beginner'}
-            ];
+                {name: 'session 2', level: 'beginner'},
+            ] as ISession[];
 
             component.filterBy = 'all';
             component.sortBy = 'name';
@@ -45,4 +45,4 @@ describe('SessionListCompoentn', () => {
         });
     });
 });
-
+

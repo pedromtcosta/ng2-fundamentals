@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { EventService } from "./shared/index";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { EventService } from './shared/index';
 
 @Component({
     templateUrl: 'app/events/create-event.component.html',
@@ -11,17 +11,17 @@ import { EventService } from "./shared/index";
     .error ::-moz-placeholder { color: #999; }
     .error :-moz-placeholder { color: #999; }
     .error :-ms-input-placeholder { color: #999; }
-    `]
+    `],
 })
 export class CreateEventComponent implements OnInit {
-    event: any
-    isDirty: boolean = true
+    public event: any;
+    public isDirty: boolean = true;
 
     constructor(
         private eventService: EventService,
         private router: Router) {}
 
-    ngOnInit() {
+    public ngOnInit() {
         this.event = {
             name: 'Ng Spectacular',
             date: '8/8/2028',
@@ -30,21 +30,21 @@ export class CreateEventComponent implements OnInit {
             location: {
                 address: '456 Happy St',
                 city: 'Felicity',
-                country: 'Angularistan'
+                country: 'Angularistan',
             },
             onlineUrl: 'http://ngSpectacular.com',
-            imageUrl: 'http://ngSpectacular.com/logo.png'
-        }
+            imageUrl: 'http://ngSpectacular.com/logo.png',
+        };
     }
 
-    saveEvent(formValues) {
-        this.eventService.saveEvent(formValues).subscribe(event => {
-            this.isDirty = false
-            this.router.navigate(["/events"])
+    public saveEvent(formValues) {
+        this.eventService.saveEvent(formValues).subscribe((event) => {
+            this.isDirty = false;
+            this.router.navigate(['/events']);
         });
     }
 
-    cancel(): void {
-        this.router.navigate(["/events"])
+    public cancel(): void {
+        this.router.navigate(['/events']);
     }
 }
